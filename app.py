@@ -3,7 +3,10 @@ import json
 import wikipedia
 import requests
 from flask import Flask, render_template, request
-from googleapiclient.discovery import build  # Add this import
+from googleapiclient.discovery import build
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 DATA_FILE = "data.json"
