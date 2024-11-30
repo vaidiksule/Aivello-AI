@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aivello</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <h1>Aivello</h1>
+      </div>
+      <nav class="navbar">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </aside>
+    <!-- Main Content -->
+    <main class="main-content">
+      <section>
+        <h2>Wikipedia Search</h2>
+        <div class="input-container">
+          <form method="POST">
+            <label for="name">Enter a topic to search:</label>
+            <input type="text" id="name" name="name" placeholder="Enter a topic" required>
+            <button type="submit">Search</button>
+          </form>
+        </div>
+        <div class="output-container">
+          {% if name %}
+            <h3>Information about "{{ name }}":</h3>
+        
+            {% if person_data.wikipedia %}
+              <h4>Wikipedia:</h4>
+              <p>{{ person_data.wikipedia.summary }}</p>
+              <p><a href="{{ person_data.wikipedia.url }}" target="_blank">Read more on Wikipedia</a></p>
+            {% endif %}
+        
+            {% if person_data.news %}
+              <h4>News Articles:</h4>
+              <ul>
+                {% for article in person_data.news %}
+                  <li><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+        
+            {% if person_data.youtube %}
+              <h4>YouTube Videos:</h4>
+              <ul>
+                {% for video in person_data.youtube %}
+                  <li><a href="{{ video.url }}" target="_blank">{{ video.title }}</a></li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+        
+          {% else %}
+            <p>Enter a name to search for information.</p>
+          {% endif %}
+        </div>                       
+      </section>
+    </main>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,111 @@
+{
+    "elon musk": {
+        "wikipedia": null,
+        "news": [
+            {
+                "title": "Elon Musk's America PAC Has Created an Election Denial Cesspool on X",
+                "url": "https://www.wired.com/story/elon-musk-america-pac-election-denial-community-x/"
+            },
+            {
+                "title": "Inside Elon Musk\u2019s messy breakup with OpenAI",
+                "url": "https://www.theverge.com/2024/11/18/24299787/elon-musk-openai-lawsuit-sam-altman-xai-google-deepmind"
+            },
+            {
+                "title": "Elon Musk\u2019s America PAC Hit With Class Action Lawsuit",
+                "url": "https://www.wired.com/story/elon-musk-america-pac-class-action-lawsuit/"
+            },
+            {
+                "title": "Elon Musk\u2019s Twitter Takeover Set Off a Race to the Bottom",
+                "url": "https://www.wired.com/story/elon-musk-trust-safety-industry/"
+            },
+            {
+                "title": "Elon Musk and Vivek Ramaswamy have spelled out their plans for DOGE",
+                "url": "https://www.theverge.com/2024/11/20/24301975/elon-musk-vivek-ramaswamy-doge-plan"
+            }
+        ]
+    },
+    "ajay nagar": {
+        "wikipedia": null,
+        "news": [
+            {
+                "title": "Old is gold: Why Bollywood is turning to re-releases amid string of flops",
+                "url": "https://www.aljazeera.com/news/2024/11/22/old-is-gold-why-bollywood-is-turning-to-re-releases-amid-string-of-flops"
+            },
+            {
+                "title": "Amid air pollution crisis, hospitals see rise in respiratory cases",
+                "url": "https://economictimes.indiatimes.com/news/india/amid-air-pollution-crisis-hospitals-see-rise-in-respiratory-cases/articleshow/115426364.cms"
+            },
+            {
+                "title": "Delhi Weather, AQI & Air Pollution Today Live: Delhi air quality remains \u2018very poor\u2019; residents report breathing difficulties",
+                "url": "https://www.thehindubusinessline.com/news/national/delhi-weather-temperature-delhi-ncr-aqi-air-quality-pollution-live-updates-today-24-nov-2024/article68880880.ece"
+            },
+            {
+                "title": "Delhi Weather, AQI & Air Pollution Today Live: Dense fog forecast in coming days: CAQM updates guidelines",
+                "url": "https://www.thehindubusinessline.com/news/national/delhi-weather-temperature-delhi-ncr-aqi-air-quality-pollution-live-updates-today-21-nov-2024/article68880880.ece"
+            },
+            {
+                "title": "Delhi Weather, AQI & Air Pollution Today Live: CAQM reviews sector-specific enforcement actions taken in Delhi-NCR, Punjab to abate air pollution",
+                "url": "https://www.thehindubusinessline.com/news/national/delhi-weather-temperature-delhi-ncr-aqi-air-quality-pollution-live-updates-today-22-nov-2024/article68880880.ece"
+            }
+        ]
+    },
+    "carryminati": {
+        "wikipedia": null,
+        "news": [
+            {
+                "title": "Mr Beast's Feastables and Logan Paul's Prime will find India a tough market to crack",
+                "url": "https://www.livemint.com/industry/fmcg-mr-beast-feastables-logan-paul-prime-influencers-carry-minati-youtube-creator-economy-chocolate-brand-energy-drinks-11731238510959.html"
+            }
+        ]
+    },
+    "mark zuckerberg": {
+        "wikipedia": {
+            "summary": "Mark Elliot Zuckerberg (; born May 14, 1984) is an American businessman who co-founded the social media service Facebook and its parent company Meta Platforms, of which he is the chairman, chief executive officer, and controlling shareholder. Zuckerberg has been the subject of multiple lawsuits regarding the creation and ownership of the website as well as issues such as user privacy.",
+            "url": "https://en.wikipedia.org/wiki/Mark_Zuckerberg"
+        },
+        "news": [
+            {
+                "title": "[Removed]",
+                "url": "https://removed.com"
+            },
+            {
+                "title": "[Removed]",
+                "url": "https://removed.com"
+            },
+            {
+                "title": "[Removed]",
+                "url": "https://removed.com"
+            },
+            {
+                "title": "[Removed]",
+                "url": "https://removed.com"
+            },
+            {
+                "title": "[Removed]",
+                "url": "https://removed.com"
+            }
+        ],
+        "youtube": [
+            {
+                "title": "Mark Zuckerberg: Meta, Facebook, Instagram, and the Metaverse | Lex Fridman Podcast #267",
+                "url": "https://www.youtube.com/watch?v=5zOHSysMmH0"
+            },
+            {
+                "title": "Joe Rogan Experience #1863 - Mark Zuckerberg",
+                "url": "https://www.youtube.com/watch?v=0XR4x1ssblQ"
+            },
+            {
+                "title": "The Mark Zuckerberg Interview",
+                "url": "https://www.youtube.com/watch?v=QciJ9ubeLQk"
+            },
+            {
+                "title": "The Future Mark Zuckerberg Is Trying To Build",
+                "url": "https://www.youtube.com/watch?v=oX7OduG1YmI"
+            },
+            {
+                "title": "Mark Zuckerberg - Llama 3, $10B Models, Caesar Augustus, &amp; 1 GW Datacenters",
+                "url": "https://www.youtube.com/watch?v=bc6uFV9CJGg"
+            }
+        ]
+    }
+}
