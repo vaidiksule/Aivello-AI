@@ -16,14 +16,44 @@ YOUTUBE_API_KEY = os.getenv("your_youtube_api_key")
 
 
 def load_credits():
-    if os.path.exists(CREDITS_FILE):
-        try:
-            with open(CREDITS_FILE, "r") as file:
-                return json.load(file)
-        except json.JSONDecodeError:
-            print("Warning: JSON file is empty or invalid. Resetting data.")
-            return {}  # Return an empty dictionary
-    return {}
+    try:
+        with open(CREDITS_FILE, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {"user": {"credit": 0}}  # Default value if file is missing
+    except json.JSONDecodeError:
+        return {"user": {"credit": 0}}  # Default value if JSON is corrupte
+
+def save_credits(data):
+    try:
+        with open(CREDITS_FILE, "w") as file:
+            json.dump(data, file, indent=4)
+    except Exception as e:
+        print(f"Error saving credits: {e}")
+
+def reduce_credit():
+    data = load_credits()
+    if data["user"]["credit"] > 0:
+        data["user"]["credit"] -= 1
+        save_credits(data)
+        
+def add_credit(amount):
+    """
+    Adds the specified amount of credits to the user's account.
+
+    Args:
+        amount (int): The number of credits to add.
+    """
+    if amount <= 0:
+        print("Invalid amount. Please provide a positive number.")
+        return
+    
+    data = load_credits()
+    data["user"]["credit"] += amount
+    save_credits(data)
+    print(f"{amount} credits successfully added.")
+
+
 
 # loading already saved data
 def load_data():
@@ -38,8 +68,11 @@ def load_data():
     return {}
 
 def save_data(data):
-    with open(DATA_FILE, "w") as file:
-        json.dump(data, file, indent=4)
+    try:
+        with open(DATA_FILE, "w") as file:
+            json.dump(data, file, indent=4)
+    except Exception as e:
+        print(f"Error saving data: {e}")
 
 
 # fetching data from different sources
@@ -102,25 +135,28 @@ def index():
     name = ""
     person_data = {}
     local_data = load_data()
+    credits_left = load_credits()["user"]["credit"]
 
     if request.method == "POST":
-        global total_credits
         name = request.form.get("name")
         if name:
             if name in local_data:
                 person_data = local_data[name]
             else:
-                total_credits -= 1
-                # Fetch data from multiple sources
-                person_data = {
-                    "wikipedia": fetch_wikipedia(name),
-                    "news": fetch_news(name),
-                    "youtube": fetch_youtube_videos(name),  # Add YouTube videos
-                }
-                # Save only if data is valid
-                if any(person_data.values()):
-                    local_data[name] = person_data
-                    save_data(local_data)
+                if credits_left > 0:
+                    reduce_credit()
+                    # Fetch data from multiple sources
+                    person_data = {
+                        "wikipedia": fetch_wikipedia(name),
+                        "news": fetch_news(name),
+                        "youtube": fetch_youtube_videos(name),
+                    }
+                    # Save only if data is valid
+                    if any(person_data.values()):
+                        local_data[name] = person_data
+                        save_data(local_data)
+                else:
+                    person_data = {"error": "Insufficient credits"}
 
     return render_template("index.html", name=name, person_data=person_data)
 
@@ -132,6 +168,25 @@ def invoice():
 def wallet():
     credits_left = load_credits()
     return render_template('wallet.html', credits_left=credits_left)   
+
+@app.route('/wallet/add_credit', methods=["POST"])
+def add_credit_route():
+    """
+    Adds credits to the user's wallet from the wallet page.
+    """
+    amount = request.form.get("amount")
+    if amount:
+        try:
+            amount = int(amount)
+            add_credit(amount)
+            message = f"{amount} credits added successfully."
+        except ValueError:
+            message = "Invalid amount. Please enter a valid number."
+    else:
+        message = "No amount provided."
+
+    credits_left = load_credits()
+    return render_template('wallet.html', credits_left=credits_left, message=message)
 
 @app.route('/profile')
 def profile():

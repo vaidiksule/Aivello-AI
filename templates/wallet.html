@@ -4,10 +4,18 @@
 <div class="container">
     <h3>Wallet</h3>
     {% if credits_left %}
-    <p>You have {{credits_left.credits}} credits left</p>
+    <p>You have {{ credits_left['user']['credit'] }} credits left.</p>
     {% endif %}
-    <a href="#">
-        <span>Add Credits</span>
-    </a>
+    <div class="add-credit-container">
+        <form action="/wallet/add_credit" method="POST">
+            <label for="add-credits">Enter credits to add:</label>
+            <input type="number" name="amount" min="1" class="form-control" required>
+            <button type="submit" id="add-credit-btn" class="btn btn-primary">Add Credits</button>
+        </form>
+    </div>
 </div>
+{% if message %}
+<p>{{ message }}</p>
+{% endif %}
+
 {% endblock %}

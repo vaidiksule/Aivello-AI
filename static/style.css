@@ -165,13 +165,11 @@ body {
 main {
     padding: min(30px, 7%);
 }
-
 main p {
     color: var(--secondary-text-clr);
     margin-top: 5px;
     margin-bottom: 15px;
 }
-
 .container {
     border: 1px solid var(--line-clr);
     border-radius: 1em;
@@ -189,14 +187,12 @@ main p {
         font-size: medium;
     }
 }
-
 .input-container form label {
     font-size: 16px;
     font-weight: 400;
     margin-left: 5px;
     margin-right: 8px;
 }
-
 .input-container form input {
     height: 45px;
     width: 20rem;
@@ -208,7 +204,6 @@ main p {
     padding-left: 10px;
     background-color: var(--secondary-text-clr);
 }
-
 .input-container form button {
     height: 50px;
     width: 92px;
@@ -221,12 +216,10 @@ main p {
     font: inherit;
     font-weight: 500;
 }
-
 .input-container form button:hover {
     background-color: var(--accent-clr);
     transition: 0.3s ease-in-out;
 }
-
 .wiki-container, .news-container, .youtube-container {
     border: 1px solid var(--line-clr);
     border-radius: 1em;
@@ -238,7 +231,36 @@ main p {
         margin-top: 1em;
         margin-bottom: 1.5rem;
     }
-    }
+}
+
+.add-credit-container form button{
+    height: 50px;
+    width: 150px;
+    /* margin-top: 4px; */
+    /* padding: 8px; */
+    border: none;
+    border-radius: 1rem;
+    background-color: var(--hover-clr);
+    color: var(--text-clr);
+    font: inherit;
+    font-weight: 500;
+}
+
+.add-credit-container form button:hover{
+    background-color: var(--accent-clr);
+    transition: 0.3s ease-in-out;
+}
+.add-credit-container form input{
+    height: 45px;
+    width: 5rem;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 1rem;
+    font: inherit;
+    font-weight: 500;
+    padding-left: 10px;
+    background-color: var(--secondary-text-clr);
+}
 
 
 /* media query */
