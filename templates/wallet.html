@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="container">
+    <h3>Wallet</h3>
+    {% if credits_left %}
+    <p>You have {{credits_left.credits}} credits left</p>
+    {% endif %}
+    <a href="#">
+        <span>Add Credits</span>
+    </a>
+</div>
+{% endblock %}

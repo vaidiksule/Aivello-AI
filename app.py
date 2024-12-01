@@ -9,11 +9,23 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-DATA_FILE = "data.json"
+DATA_FILE = "searchData.json"
+CREDITS_FILE = "credits.json"
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 YOUTUBE_API_KEY = os.getenv("your_youtube_api_key")
 
 
+def load_credits():
+    if os.path.exists(CREDITS_FILE):
+        try:
+            with open(CREDITS_FILE, "r") as file:
+                return json.load(file)
+        except json.JSONDecodeError:
+            print("Warning: JSON file is empty or invalid. Resetting data.")
+            return {}  # Return an empty dictionary
+    return {}
+
+# loading already saved data
 def load_data():
     """Load data from the local JSON file."""
     if os.path.exists(DATA_FILE):
@@ -25,6 +37,12 @@ def load_data():
             return {}  # Return an empty dictionary
     return {}
 
+def save_data(data):
+    with open(DATA_FILE, "w") as file:
+        json.dump(data, file, indent=4)
+
+
+# fetching data from different sources
 def fetch_youtube_videos(name):
     """Fetch YouTube videos related to the person's name and podcasts."""
     try:
@@ -45,11 +63,6 @@ def fetch_youtube_videos(name):
     except Exception as e:
         print(f"Error fetching YouTube videos: {e}")
         return None
-
-def save_data(data):
-    """Save data to the local JSON file."""
-    with open(DATA_FILE, "w") as file:
-        json.dump(data, file, indent=4)
 
 def fetch_wikipedia(name):
     """Fetch Wikipedia data."""
@@ -83,6 +96,7 @@ def fetch_news(name):
     return None
 
 
+# routing
 @app.route("/", methods=["GET", "POST"])
 def index():
     name = ""
@@ -90,11 +104,13 @@ def index():
     local_data = load_data()
 
     if request.method == "POST":
+        global total_credits
         name = request.form.get("name")
         if name:
             if name in local_data:
                 person_data = local_data[name]
             else:
+                total_credits -= 1
                 # Fetch data from multiple sources
                 person_data = {
                     "wikipedia": fetch_wikipedia(name),
@@ -108,5 +124,17 @@ def index():
 
     return render_template("index.html", name=name, person_data=person_data)
 
+@app.route('/invoice')
+def invoice():
+    return render_template('invoice.html')   
+
+@app.route('/wallet')
+def wallet():
+    credits_left = load_credits()
+    return render_template('wallet.html', credits_left=credits_left)   
+
+@app.route('/profile')
+def profile():
+    return render_template('profile.html') 
 if __name__ == "__main__":
     app.run(debug=True)  
