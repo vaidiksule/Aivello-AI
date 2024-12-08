@@ -134,6 +134,18 @@ def fetch_news(name):
 def homepage():
     return render_template("index.html")
 
+@app.route('/register')
+def register():
+    if request.method == 'POST':
+        pass
+    return render_template('register.html')
+
+@app.route('/login')
+def login():
+    if request.method == 'POST':
+        pass
+    return render_template('login.html')
+
 
 @app.route("/dashboard", methods=["GET", "POST"])
 def dashboard():

@@ -45,7 +45,7 @@ header h1 {
     margin: 0; /* Prevent unnecessary spacing */
 }
 
-header .signup-btn {
+header .login-btn {
     position: absolute;
     top: 50%; /* Center the button vertically within the header */
     right: 2rem; /* Align to the right edge */
@@ -59,7 +59,7 @@ header .signup-btn {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-header .signup-btn:hover {
+header .login-btn:hover {
     background-color: var(--accent-clr);
     color: var(--base-clr);
 }
