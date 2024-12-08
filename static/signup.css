@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --base-clr: #11121a;
+  --line-clr: #42434a;
+  --hover-clr: #2c2c2c;
+  --text-clr: #e6e6ef;
+  --accent-clr: #5e56ff;
+  --secondary-text-clr: #b0b3c1;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: Montserrat, sans-serif;
+  line-height: 1.5rem;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--base-clr);
+  color: var(--text-clr);
+}
+
+
+/* Main */
+main {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  margin-top: 100px;
+  border: 1px solid var(--line-clr);
+  border-radius: 1em;
+  height: 80vh;
+  width: 60%;
+
+  h2 {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+  }
+}
+
+.input-container form {
+  padding-left: 10%;
+}
+
+.input-container form label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.input-container form input {
+  height: 40px;
+  width: 80%;
+  border: none;
+  border-radius: 0.5rem;
+  font: inherit;
+  font-weight: 600;
+  padding-left: 10px;
+  background-color: var(--secondary-text-clr);
+  display: flex;
+  flex-direction: column;
+}
+
+.input-container form button {
+  height: 50px;
+  width: 100px;
+  border: none;
+  border-radius: 1rem;
+  background-color: var(--accent-clr);
+  color: var(--text-clr);
+  font: inherit;
+  font-weight: 800;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 35%;
+}
+
+.input-container form button:hover {
+  background-color: var(--hover-clr);
+  transition: 0.3s ease-in-out;
+}
+
+
+
+
+/* media query */
+@media(max-width: 800px) {
+  .container{
+   width: 80%; 
+   margin-top: 20px;
+  }
+}

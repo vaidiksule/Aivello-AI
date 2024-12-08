@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,600;1,400&display=swap');
+
+:root {
+    --base-clr: #11121a;
+    --line-clr: #42434a;
+    --hover-clr: #2c2c2c;
+    --text-clr: #e6e6ef;
+    --accent-clr: #5e56ff;
+    --secondary-text-clr: #b0b3c1;
+    --bg-gradient: linear-gradient(135deg, #100f23, #11121a);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+    /* opacity: 0; */
+    animation: fadeIn 1s ease-in-out forwards;
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-clr);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color:var(--bg-gradient);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); */
+    position: relative; /* Ensure proper layout context */
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-clr);
+    margin: 0; /* Prevent unnecessary spacing */
+}
+
+header .signup-btn {
+    position: absolute;
+    top: 50%; /* Center the button vertically within the header */
+    right: 2rem; /* Align to the right edge */
+    transform: translateY(-50%); /* Adjust vertical centering */
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--accent-clr);
+    border-radius: 25px;
+    color: var(--accent-clr);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header .signup-btn:hover {
+    background-color: var(--accent-clr);
+    color: var(--base-clr);
+}
+
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+
+
+.intro a{
+    display: flex;
+    flex-direction: column;
+}
+.intro h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.intro p {
+    font-size: 1.5rem;
+    color: var(--secondary-text-clr);
+    margin-bottom: 1.5rem;
+}
+
+.intro .get-started-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    background-color: var(--accent-clr);
+    color: var(--base-clr);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    >span{
+        height: 20px;
+    }
+    > svg{
+        flex-shrink: 0;
+        fill: var(--base-clr);
+        height: 20px;
+    }
+}
+
+.intro .get-started-btn:hover {
+    background-color: #433de5; /* Slightly darker accent color */
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: rgba(17, 18, 26, 0.9);
+}
+
+footer p {
+    font-size: 0.9rem;
+    color: var(--secondary-text-clr);
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    .intro h2 {
+        font-size: 2rem;
+    }
+
+    .intro p {
+        font-size: 1.2rem;
+    }
+
+    .intro .get-started-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply fade-in animation to the body */
+body {
+    animation: fadeIn 1s ease-in-out;
+}

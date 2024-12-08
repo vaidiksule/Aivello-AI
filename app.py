@@ -14,7 +14,7 @@ CREDITS_FILE = "credits.json"
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
 YOUTUBE_API_KEY = os.getenv("your_youtube_api_key")
 
-
+# credits
 def load_credits():
     try:
         with open(CREDITS_FILE, "r") as file:
@@ -130,8 +130,13 @@ def fetch_news(name):
 
 
 # routing
-@app.route("/", methods=["GET", "POST"])
-def index():
+@app.route("/")
+def homepage():
+    return render_template("index.html")
+
+
+@app.route("/dashboard", methods=["GET", "POST"])
+def dashboard():
     name = ""
     person_data = {}
     local_data = load_data()
@@ -158,7 +163,7 @@ def index():
                 else:
                     person_data = {"error": "Insufficient credits"}
 
-    return render_template("index.html", name=name, person_data=person_data)
+    return render_template("dashboard.html", name=name, person_data=person_data)
 
 @app.route('/invoice')
 def invoice():
@@ -191,5 +196,10 @@ def add_credit_route():
 @app.route('/profile')
 def profile():
     return render_template('profile.html') 
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
 if __name__ == "__main__":
     app.run(debug=True)  
