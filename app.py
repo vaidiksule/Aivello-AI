@@ -2,13 +2,35 @@ import os
 import json
 import wikipedia
 import requests
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, session, flash
 from googleapiclient.discovery import build
-from dotenv import load_dotenv
-
-load_dotenv()
+from flask_bcrypt import Bcrypt
+import mysql.connector
 
 app = Flask(__name__)
+app.secret_key = os.getenv('FLASK_SECRET_KEY')
+bcrypt = Bcrypt(app)
+
+
+# MySQL Configuration
+db = mysql.connector.connect(
+    host=os.getenv('DB_HOST'),  # Replace with Render database hostname
+    user=os.getenv('DB_USER'),  # Replace with database username
+    password=os.getenv('DB_PASSWORD'),  # Replace with database password
+    database=os.getenv('DB_NAME')  # Replace with database name
+)
+
+cursor = db.cursor()
+
+with open('schema.sql', 'r') as f:
+    try:
+        cursor.execute(f.read())
+    except:
+        pass
+db.commit()
+
+
+
 DATA_FILE = "searchData.json"
 CREDITS_FILE = "credits.json"
 NEWS_API_KEY = os.getenv("NEWS_API_KEY")
@@ -53,8 +75,6 @@ def add_credit(amount):
     save_credits(data)
     print(f"{amount} credits successfully added.")
 
-
-
 # loading already saved data
 def load_data():
     """Load data from the local JSON file."""
@@ -73,7 +93,6 @@ def save_data(data):
             json.dump(data, file, indent=4)
     except Exception as e:
         print(f"Error saving data: {e}")
-
 
 # fetching data from different sources
 def fetch_youtube_videos(name):
@@ -134,21 +153,53 @@ def fetch_news(name):
 def homepage():
     return render_template("index.html")
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        pass
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+
+        # Hash password
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+        try:
+            cursor.execute("INSERT INTO users (username, email, password) VALUES (%s, %s, %s)", (username, email, hashed_password))
+            db.commit()
+            flash('Registration successful. Please log in.', 'success')
+            return redirect('/')
+        except mysql.connector.IntegrityError:
+            flash('Username or email already exists.', 'danger')
+
     return render_template('register.html')
 
-@app.route('/login')
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        pass
+        email = request.form['email']
+        password = request.form['password']
+
+        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+        user = cursor.fetchone()
+
+        if user and bcrypt.check_password_hash(user[3], password):  # Password is stored at index 3
+            session['user_id'] = user[0]
+            session['username'] = user[1]
+            flash('Logged in successfully!', 'success')
+            return redirect('/dashboard')
+        else:
+            flash('Invalid email or password.', 'danger')
+
     return render_template('login.html')
+
 
 
 @app.route("/dashboard", methods=["GET", "POST"])
 def dashboard():
+    if 'user_id' not in session:
+        flash('Please log in first.', 'danger')
+        return redirect('/')
     name = ""
     person_data = {}
     local_data = load_data()
