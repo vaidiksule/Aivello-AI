@@ -10,17 +10,16 @@
 <body>
     <div class="auth-container">
         <div class="form-box">
-            <h2>Login</h2>
-            <form action="/login" method="POST">
-                <label for="email">Email:</label>
-                <input type="email" name="email" placeholder="Enter your email" required>
+            <h2>Sign in to your account</h2>
+            <form action="/login" id='auth-form' method="POST">
+                <label for="username">Username</label>
+                <input type="text" name="username" required>
                 
-                <label for="password">Password:</label>
-                <input type="password" name="password" placeholder="Enter your password" required>
-                
+                <label for="password">Password</label>
+                <input type="password" name="password" required>
                 <button type="submit" class="btn-primary">Login</button>
             </form>
-            <p>Don't have an account? <a href="/register">Register</a></p>
+            <p>Don't have an account? <a href="/register">Create account</a></p>
         </div>
     </div>
 </body>
