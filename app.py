@@ -290,39 +290,41 @@ def register():
 
 @app.route("/dashboard", methods=["GET", "POST"])
 def dashboard():
-    # if "username" in session:
-    #     return redirect(url_for('dashboard'))
-    if 'user_id' not in session:
-        flash('Please log in first.', 'danger')
-        return redirect('/')
-    name = ""
-    person_data = {}
-    local_data = load_data()
-    credits_left = load_credits()["user"]["credit"]
+    if "username" in session:
+        username = session["username"]
+        name = ""
+        person_data = {}
+        local_data = load_data()
+        # credits_left = load_credits()["user"]["credit"]
+        credits_left = load_credits().get("user", {}).get("credit", 0)
 
-    if request.method == "POST":
-        name = request.form.get("name")
-        if name:
-            if name in local_data:
-                person_data = local_data[name]
-            else:
-                if credits_left > 0:
-                    reduce_credit()
-                    # Fetch data from multiple sources
-                    person_data = {
-                        "wikipedia": fetch_wikipedia(name),
-                        "news": fetch_news(name),
-                        "youtube": fetch_youtube_videos(name),
-                    }
-                    # Save only if data is valid
-                    if any(person_data.values()):
-                        local_data[name] = person_data
-                        save_data(local_data)
+        if request.method == "POST":
+            name = request.form.get("name")
+            if name:
+                if name in local_data:
+                    person_data = local_data[name]
                 else:
-                    person_data = {"error": "Insufficient credits"}
+                    if credits_left > 0:
+                        reduce_credit()
+                        # Fetch data from multiple sources
+                        person_data = {
+                            "wikipedia": fetch_wikipedia(name),
+                            "news": fetch_news(name),
+                            "youtube": fetch_youtube_videos(name),
+                        }
+                        # Save only if data is valid
+                        if any(person_data.values()):
+                            local_data[name] = person_data
+                            save_data(local_data)
+                    else:
+                        person_data = {"error": "Insufficient credits"}
 
-    return render_template("dashboard.html", name=name, person_data=person_data)
-
+        return render_template("dashboard.html", name=name, person_data=person_data)
+    else:
+        # If not logged in, redirect to login page
+        flash("Please log in to access the dashboard", "warning")
+        return render_template('login.html')
+    
 # Route for the invoice page
 @app.route('/invoice')
 def invoice():
