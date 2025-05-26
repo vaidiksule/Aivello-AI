@@ -3,6 +3,7 @@ import json
 import wikipedia
 import requests
 from datetime import datetime
+from flask_bcrypt import Bcrypt
 from flask import Flask, render_template, request, redirect, session,url_for , flash, redirect
 from googleapiclient.discovery import build
 from flask_sqlalchemy import SQLAlchemy
@@ -11,10 +12,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///users.db" 
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 app.config['SQLALCHAMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-
 
 DATA_FILE = "searchData.json"
 CREDITS_FILE = "credits.json"
@@ -246,7 +246,6 @@ def login():
     return render_template('login.html')
 
 # Route for handling user registration
-@app.route('/register', methods=['GET', 'POST'])
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':  # Check if the request method is POST (form submission)
